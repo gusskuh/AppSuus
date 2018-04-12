@@ -55,13 +55,30 @@ function genMails() {
 
 const loadMails = () => storageService.load(KEY);
 
-function query() {
+function query(filter = null) {
     var emails = loadMails()
-    if (!emails) {
-        emails = hardCodedEmails
-        storageService.store(KEY, hardCodedEmails)
-    }
+    if (filter && filter.filterBy === 'read') filter.filterBy = true
+    if (filter && filter.filterBy === 'unread') filter.filterBy = false
+    emails = hardCodedEmails
+    storageService.store(KEY, hardCodedEmails)
+    if (filter && filter.filterBy !== 'all') emails = emails.filter(email => {
+        return (email.subject.toLowerCase().includes(filter.text.toLowerCase()) &&
+            email.isRead === filter.filterBy)
+    })
+    else if (filter && filter.filterBy === 'all') emails = emails.filter(email => {
+        return (email.subject.toLowerCase().includes(filter.text.toLowerCase()))
+    })
     return Promise.resolve(emails)
+}
+
+function addMail(newMail){
+    var mails= loadMails();
+    newMail.id=mails.length+1;
+    mails.push(newMail);
+    console.log('asdsadsadsda',mails);
+    storageService.store(KEY, mails)
+    return mails;
+
 }
 
 function getMailById(id) {
@@ -69,7 +86,7 @@ function getMailById(id) {
     let mail = mails.find(mail => mail.id === id)
 
 
-    console.log({ id, mail })
+    // console.log({ id, mail })
     return Promise.resolve(mail)
 }
 
@@ -94,5 +111,6 @@ export default {
     genMails,
     getMailById,
     query,
-    deleteMail
+    deleteMail,
+    addMail
 }

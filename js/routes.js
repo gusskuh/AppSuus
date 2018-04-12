@@ -16,3 +16,5 @@ Vue.use(VueRouter);
 var myRouter = new VueRouter({routes})
 
 export default myRouter;
+
+

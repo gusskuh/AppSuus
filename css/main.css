@@ -1,4 +1,82 @@
 .active {
-    font-style: italic;
-    background-color: grey;
+   
+    /* font-size: 18px; */
+    background-color: rgb(238, 238, 238) !important; 
+    font-weight: bold;
 }
+
+.mail-preview {
+    /* font-weight: normal; */
+    font-size: 1em;
+    margin: 10px;
+    background-color: aliceblue;
+    height: 100px;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.mail-preview:hover {
+    border-right: 5px solid rgb(123, 255, 0);
+}
+
+.mail-detials-title {
+    margin-top: 15px;
+}
+
+.lable {
+    width: 100px;
+}
+
+body{
+    padding: 10px;
+    width: 1300px;
+    margin: 0 auto;
+}
+
+.mail-details {
+    padding:10px;
+    margin: 5px;
+    background-color: aliceblue;
+    height: 500px;
+}
+
+.mail-time {
+   background-color:  hsl(204, 86%, 53%);
+   color: white;
+}
+
+.navbar-item {
+    list-style-type: none;
+}
+
+.sort-bar {
+    margin: 5px;
+}
+
+.select {
+    margin-left: 10px;
+}
+
+.search-bar {
+    width: 400px;
+    margin: 0px;
+    display: flex;  
+}
+
+
+ /* helpers */
+ 
+ .flex {
+    display: flex;
+ }
+
+ .space-between {
+     justify-content: space-between;
+ }
+
+
+
+

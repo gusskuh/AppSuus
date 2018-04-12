@@ -16,11 +16,35 @@ function makeid(length) {
     return text;
   }
 
+function sortByName(arr) {
+    arr.sort(function (a, b) {
+        var nameA = a.subject.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.subject.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
 
+        // names must be equal
+        return 0;
+    });
+}
+function sortByTime(arr) {
+    arr.sort(function (a, b) {
+        return a.sentAt - b.sentAt;
+    });
+}
 
 export default {
     getRandomInt,
-    getRandomString : makeid
+    getRandomString : makeid,
+    sortByName,
+    sortByTime
     
 }
+///////////
+
+
 

@@ -2,16 +2,13 @@ import mailService from '../mail.service.js'
 
 export default {
     template: `
-    <section style="background: red">
-    <button @click="deleteMail">Delete</button>
-        <h3>mail-details</h3>
-        <div class="mail-details" v-if="mail">
-            <h1>{{mail.id}}</h1>
-            <h4>{{mail.body}} 
-                <span>
-                     {{mail.sentAt}}   
-            </span>
-            </h4> 
+    <section class="box">
+    <a class="delete is-large" @click="deleteMail">Delete</a>
+    <!-- <button @click="deleteMail">Delete</button> -->
+      
+        <div v-if="mail">
+            <h1 class="mail-detials-title">{{mail.subject}}</h1>
+            <h4>{{mail.body}}</h4> 
         </div> 
 
 
@@ -27,10 +24,8 @@ export default {
         updateMail(){
             var  mailId = +this.$route.params.mailId;
             if(!mailId) mailId = 1
-           
             mailService.getMailById(mailId)
                 .then(mail => {
-                    // console.log('mail',mail);
                     this.mail = mail
                 })    
         },
@@ -54,4 +49,7 @@ export default {
     },
 
 }
+
+
+
 
