@@ -24,21 +24,8 @@ export default {
         return {
         }
     },
-
-    methods: {
-        getUnreadMails() {
-            console.log('this is coming from the list cmps', this.mails)
-            // for(var i = 0; i < this.mails.length; i++) {
-            //     console.log('dsdasdsadas' ,this.mails)
-            // }
-        }
-    },
-
     components: {
         mailPreview
-    },
-    created(){
-        this.getUnreadMails()
     }
 }
 

@@ -33,35 +33,42 @@ const hardCodedEmails = [
 ]
 
 
-var mailDB = [];
-
-
-function getMail() {
-    return {
-        subject: 'Sprint3',
-        body: 'popomukikoki',
-        isRead: false,
-        id: utilService.getRandomInt(1, 100000),
-        sentAt: Date.now()
-    }
-}
-
-function genMails() {
-    for (let index = 0; index < 20; index++) {
-        mailDB.push(getMail());
-    }
-    return mailDB;
-}
+// function getMail() {
+//     return {
+//         subject: 'Sprint3',
+//         body: 'popomukikoki',
+//         isRead: false,
+//         id: utilService.getRandomInt(1, 100000),
+//         sentAt: Date.now()
+//     }
+// }
 
 const loadMails = () => storageService.load(KEY);
 
-function query() {
+function query(filter = null) {
     var emails = loadMails()
-    if (!emails) {
-        emails = hardCodedEmails
-        storageService.store(KEY, hardCodedEmails)
-    }
+    if (filter && filter.filterBy === 'read') filter.filterBy = true
+    if (filter && filter.filterBy === 'unread') filter.filterBy = false
+    emails = hardCodedEmails
+    storageService.store(KEY, hardCodedEmails)
+    if (filter && filter.filterBy !== 'all') emails = emails.filter(email => {
+        return (email.subject.toLowerCase().includes(filter.text.toLowerCase()) &&
+            email.isRead === filter.filterBy)
+    })
+    else if (filter && filter.filterBy === 'all') emails = emails.filter(email => {
+        return (email.subject.toLowerCase().includes(filter.text.toLowerCase()))
+    })
     return Promise.resolve(emails)
+}
+
+function addMail(newMail){
+    var mails= loadMails();
+    newMail.id=mails.length+1;
+    mails.push(newMail);
+    console.log('asdsadsadsda',mails);
+    storageService.store(KEY, mails)
+    return mails;
+
 }
 
 function getMailById(id) {
@@ -69,30 +76,11 @@ function getMailById(id) {
     let mail = mails.find(mail => mail.id === id)
 
 
-    console.log({ id, mail })
     return Promise.resolve(mail)
 }
 
-function deleteMail(mailId) {
-    var mails =  storageService.load(KEY);
-        
-            var mailIdx = mails.findIndex(mail => mail.id === mailId);
-             mails.splice(mailIdx, 1);
-             storageService.store(KEY, mails);
-             mails = storageService.load(KEY);
-             return mails;      
-}
-
-function getUnreadEmails (mails) {
-    const unreadsMails = mails.filter(mail => mail.isRead === false);
-    return unreadsMails;
-}
-
-
-
 export default {
-    genMails,
     getMailById,
     query,
-    deleteMail
+    addMail
 }
