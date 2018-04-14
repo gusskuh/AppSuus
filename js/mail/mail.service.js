@@ -33,25 +33,15 @@ const hardCodedEmails = [
 ]
 
 
-var mailDB = [];
-
-
-function getMail() {
-    return {
-        subject: 'Sprint3',
-        body: 'popomukikoki',
-        isRead: false,
-        id: utilService.getRandomInt(1, 100000),
-        sentAt: Date.now()
-    }
-}
-
-function genMails() {
-    for (let index = 0; index < 20; index++) {
-        mailDB.push(getMail());
-    }
-    return mailDB;
-}
+// function getMail() {
+//     return {
+//         subject: 'Sprint3',
+//         body: 'popomukikoki',
+//         isRead: false,
+//         id: utilService.getRandomInt(1, 100000),
+//         sentAt: Date.now()
+//     }
+// }
 
 const loadMails = () => storageService.load(KEY);
 
@@ -71,11 +61,11 @@ function query(filter = null) {
     return Promise.resolve(emails)
 }
 
-function addMail(newMail){
-    var mails= loadMails();
-    newMail.id=mails.length+1;
+function addMail(newMail) {
+    var mails = loadMails();
+    newMail.id = mails.length + 1;
     mails.push(newMail);
-    console.log('asdsadsadsda',mails);
+    console.log('asdsadsadsda', mails);
     storageService.store(KEY, mails)
     return mails;
 
@@ -91,26 +81,30 @@ function getMailById(id) {
 }
 
 function deleteMail(mailId) {
-    var mails =  storageService.load(KEY);
-        
-            var mailIdx = mails.findIndex(mail => mail.id === mailId);
-             mails.splice(mailIdx, 1);
-             storageService.store(KEY, mails);
-             mails = storageService.load(KEY);
-             return mails;      
+    var mails = storageService.load(KEY);
+    var mailIdx = mails.findIndex(mail => mail.id === mailId);
+    mails.splice(mailIdx, 1);
+    storageService.store(KEY, mails);
+    mails = storageService.load(KEY);
+    return mails;
 }
 
-function getUnreadEmails (mails) {
-    const unreadsMails = mails.filter(mail => mail.isRead === false);
-    return unreadsMails;
+function getUnreadMails() {
+    let mails = storageService.load(KEY);
+    let counter = 0;
+    console.log(mails, "mails service unrea amils activated")
+   mails.forEach(mail => {
+       if(!mail.isRead) counter++;
+   });
+   return counter
 }
 
 
 
 export default {
-    genMails,
     getMailById,
     query,
     deleteMail,
-    addMail
+    addMail,
+    getUnreadMails
 }

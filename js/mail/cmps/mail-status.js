@@ -1,34 +1,47 @@
 import mailService from '../mail.service.js'
-
+import mailPreview  from './mail-preview.js'
+import {bus} from '../../main.js'
 
 
 export default {
     template: `
-    <section>
-       <h1>Unread Mails <span>{{this.unreadMails}}</span></h1>
-       <progress class="progress is-success" value="10" max="100">40%</progress>
+    <section> 
+        <h1>Unread Mails: {{unreadMails}}</h1>   
+        <progress class="progress is-danger" v-bind:value="unreadMails" max="100">90%</progress>
     </section>
     `
+
     ,
+    // props: ['unreadMails'],
     
-    props: ['mails'],
-    data() {
+    data() {    
         return {
-            unreadMails: this.mails.length  
+            unreadMails: mailService.getUnreadMails(),
+            // unRMails: this.unreadMails
+            
         }
+    },
+    components: {
+        mailPreview
     },
 
     methods: {
-        getUnreadMails() {
-            for(var i = 0; i < this.mails.length; i++) {
-                console.log('dsdasdsadas' ,this.mails)
-            }
+        statusTest(){
+            console.log(this.mails)
+            console.log('unread mails are:',this.unreadMails)
+
         }
     },
-
+     
     created(){
+       this.statusTest();
+    //    this.unreadMails = mailService.getUnreadMails()
+       bus.$on('mailToggeled', (data) => {
+           console.log('bus triggered')
+        this.unreadMails = mailService.getUnreadMails()
+       })
+    //    this.getUnreadMails();
+    //    mailService.getUnreadMails()
     }
-
-    
 }
 

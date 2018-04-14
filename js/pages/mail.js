@@ -10,24 +10,24 @@ import mailCompose from '../mail/cmps/mail-compose.js'
 export default {
     template: `
     <section>
-        
-        <mail-filter @filtered="setFilter"></mail-filter>
-        
-        <mail-status :mails="mails"></mail-status>
-        <mail-sort @nameSorted="sortByName" @timeSorted="sortByTime"></mail-sort>
+        <div class="controls flex space-between">
+            <mail-sort @nameSorted="sortByName" @timeSorted="sortByTime"></mail-sort>
+            <mail-filter @filtered="setFilter"></mail-filter>
+        </div>
+        <mail-status></mail-status>
         <!-- {{selctedMail}} -->
         <div class="columns is-multiline is-mobile">
             <div class="column is-one-quarter">
                 <mail-list :mails="mails" ></mail-list>
-                <a  @click="isCompose=!isCompose" class="button is-info is-outlined">+</a>
+                <a @click="isCompose=!isCompose" class="button is-info is-outlined">+</a>
             </div>
-            <div  class="column">
+            <div class="column">
                 <mail-details  v-if="!isCompose" class="mail-details content" @deletedMail="deletedMail"></mail-details>
                 <mail-compose v-if="isCompose" @emailSent="emailSent" ></mail-compose>
             </div>
             
         </div>
-        <!-- <button @click="isCompose=!isCompose">+</button> -->
+        
        
 
     </section>
@@ -36,6 +36,7 @@ export default {
     methods: {
         deletedMail(mailId) {
             this.mails = mailService.deleteMail(mailId);
+           
         },
         setFilter(filter) {
             mailService.query(filter)
@@ -51,13 +52,18 @@ export default {
 
             this.mails = mailService.addMail(newEmail);
             this.isCompose = false
+            
         }
+        
+
+
     },
     data() {
         return {
             mails: [],
             unreadMails: 0,
-            isCompose: false
+            isCompose: false,
+            
 
         }
     },
@@ -65,7 +71,6 @@ export default {
         mailService.query()
             .then(mails => {
                 this.mails = mails
-
             })
     },
     computed: {
@@ -84,3 +89,4 @@ export default {
 }
 
 
+// @sort="sort"

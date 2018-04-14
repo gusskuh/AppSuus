@@ -1,4 +1,5 @@
 import mailService from '../mail.service.js'
+import {bus} from '../../main.js'
 
 export default {
     template: `
@@ -13,7 +14,9 @@ export default {
 
 
     </section>
-    `,
+    `
+
+    ,
 
     data() {
         return {
@@ -21,29 +24,31 @@ export default {
         }
     },
     methods: {
-        updateMail(){
-            var  mailId = +this.$route.params.mailId;
-            if(!mailId) mailId = 1
+        updateMail() {
+
+            var mailId = +this.$route.params.mailId;
+            if (!mailId) mailId = 1
             mailService.getMailById(mailId)
                 .then(mail => {
                     this.mail = mail
-                })    
+                })
         },
-
         deleteMail() {
-            console.log('Mail deleted!' , this.mail.id);
+            console.log('Mail deleted!', this.mail.id);
             this.$emit('deletedMail', this.mail.id);
+            bus.$emit('mailToggeled')
             // mailService.deleteMail(this.mail.id); 
             // this.isShown = false;
 
         }
+
+
     },
-    
     created() {
         this.updateMail()
     },
     watch: {
-        '$route'(to , from){
+        '$route'(to, from) {
             this.updateMail()
         }
     },

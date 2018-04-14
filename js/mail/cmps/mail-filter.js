@@ -44,5 +44,7 @@ export default {
     },
     cretaed(){
         this.emitFilter();
+
     }
 }
+

@@ -1,3 +1,5 @@
+import {bus} from '../../main.js'
+
 export default {
     template: `
     <section>
@@ -13,7 +15,7 @@ export default {
               <div class="field-body">
                 <div class="field">
                   <div class="control">
-                    <input v-model="mailInfo.subject" class="input is-danger" type="text" placeholder="e.g. Partnership opportunity">
+                    <input v-model="mailInfo.subject" class="input is-danger" type="text" placeholder="Mail subject" autofocus>
                   </div>
                   <p class="help is-danger">
                     This field is required
@@ -29,7 +31,7 @@ export default {
               <div class="field-body">
                 <div class="field">
                   <div class="control">
-                    <textarea v-model="mailInfo.body" class="textarea" placeholder="Explain how we can help you"></textarea>
+                    <textarea v-model="mailInfo.body" class="textarea" placeholder="type your message"></textarea>
                   </div>
                 </div>
               </div>
@@ -52,21 +54,11 @@ export default {
         
     </section>
         `
-
-
-
-
-
-
-
-
-
-
     ,
    
     data(){
         return{
-            mailInfo:{subject:'',body:'' ,sentAt:'' ,id:null}
+            mailInfo:{subject:'',body:'' ,sentAt:'' ,id:null, isRead: false}
         }
     },
     components: {
@@ -79,10 +71,13 @@ export default {
         sendEmail(){
             this.mailInfo.sentAt= Date.now()
             this.$emit('emailSent',this.mailInfo)
+            bus.$emit('mailToggeled')
         }
     },
 
     cretaed(){
+
         sendEmail()
     }
+    
 }

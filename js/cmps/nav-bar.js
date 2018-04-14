@@ -1,6 +1,6 @@
 export default {
     template: `
-    <section class="hero is-primary box ">
+    <section class=" nav-bar hero is-primary box ">
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
         <nav class="navbar">
@@ -20,7 +20,7 @@ export default {
             <div id="navbarMenuHeroA" class="navbar-menu">
               <div class="navbar-end">
                 
-                <router-link to="/" class="navbar-item is-active"><li>Home</li></router-link>
+                <router-link to="/" class="navbar-item"><li>Home</li></router-link>
                 <router-link to="/mail" class="navbar-item"><li>Mister-Mail</li></router-link>
                 <router-link to="/places" class="navbar-item"><li>Mister-Place</li></router-link>
                 <router-link to="/keeper" class="navbar-item"><li>Mister-Keeper</li></router-link>
