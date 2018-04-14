@@ -32,17 +32,6 @@ const hardCodedEmails = [
 
 ]
 
-
-// function getMail() {
-//     return {
-//         subject: 'Sprint3',
-//         body: 'popomukikoki',
-//         isRead: false,
-//         id: utilService.getRandomInt(1, 100000),
-//         sentAt: Date.now()
-//     }
-// }
-
 const loadMails = () => storageService.load(KEY);
 
 function query(filter = null) {
