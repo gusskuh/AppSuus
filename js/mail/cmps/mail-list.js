@@ -26,6 +26,9 @@ export default {
     },
     components: {
         mailPreview
+    },
+    created() {
+        // console.log('it coming from mail list comp' ,this.mails)
     }
 }
 

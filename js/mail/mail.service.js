@@ -50,11 +50,11 @@ function query(filter = null) {
     return Promise.resolve(emails)
 }
 
-function addMail(newMail){
-    var mails= loadMails();
-    newMail.id=mails.length+1;
+function addMail(newMail) {
+    var mails = loadMails();
+    newMail.id = mails.length + 1;
     mails.push(newMail);
-    console.log('asdsadsadsda',mails);
+    console.log('asdsadsadsda', mails);
     storageService.store(KEY, mails)
     return mails;
 
@@ -65,11 +65,35 @@ function getMailById(id) {
     let mail = mails.find(mail => mail.id === id)
 
 
+    // console.log({ id, mail })
     return Promise.resolve(mail)
 }
+
+function deleteMail(mailId) {
+    var mails = storageService.load(KEY);
+    var mailIdx = mails.findIndex(mail => mail.id === mailId);
+    mails.splice(mailIdx, 1);
+    storageService.store(KEY, mails);
+    mails = storageService.load(KEY);
+    return mails;
+}
+
+function getUnreadMails() {
+    let mails = storageService.load(KEY);
+    let counter = 0;
+    console.log(mails, "mails service unrea amils activated")
+   mails.forEach(mail => {
+       if(!mail.isRead) counter++;
+   });
+   return counter
+}
+
+
 
 export default {
     getMailById,
     query,
-    addMail
+    deleteMail,
+    addMail,
+    getUnreadMails
 }

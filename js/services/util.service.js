@@ -16,19 +16,6 @@ function makeid(length) {
     return text;
 }
 
-function getCurrency(currencyCode) {
-    switch (currencyCode) {
-        case 'ILS':
-            return '₪';
-        case 'EUR':
-            return '€';
-        case 'USD':
-            return '$';
-        default:
-            return '';
-    }
-}
-
 function sortByName(arr) {
     arr.sort(function (a, b) {
         var nameA = a.subject.toUpperCase(); // ignore upper and lowercase
@@ -52,9 +39,12 @@ function sortByTime(arr) {
 
 export default {
     getRandomInt,
-    getRandomString: makeid,
-    getCurrency,
+    getRandomString : makeid,
     sortByName,
     sortByTime
+    
 }
+///////////
+
+
 

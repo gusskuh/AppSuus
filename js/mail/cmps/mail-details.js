@@ -1,16 +1,15 @@
 import mailService from '../mail.service.js'
+import {bus} from '../../main.js'
 
 export default {
     template: `
-    <section style="background: red">
-        <h3>mail-details</h3>
-        <div class="mail-details" v-if="mail">
-            <h1>{{mail.id}}</h1>
-            <h4>{{mail.body}} 
-                <span>
-                     {{mail.sentAt}}   
-            </span>
-            </h4> 
+    <section class="box">
+    <a class="delete is-large" @click="deleteMail">Delete</a>
+    <!-- <button @click="deleteMail">Delete</button> -->
+      
+        <div v-if="mail">
+            <h1 class="mail-detials-title">{{mail.subject}}</h1>
+            <h4>{{mail.body}}</h4> 
         </div> 
 
 
@@ -21,29 +20,41 @@ export default {
 
     data() {
         return {
-            mail:null
+            mail: null
         }
     },
     methods: {
-        updateMail(){
+        updateMail() {
+
             var mailId = +this.$route.params.mailId;
             if (!mailId) mailId = 1
             mailService.getMailById(mailId)
                 .then(mail => {
                     this.mail = mail
-                })    
+                })
+        },
+        deleteMail() {
+            console.log('Mail deleted!', this.mail.id);
+            this.$emit('deletedMail', this.mail.id);
+            bus.$emit('mailToggeled')
+            // mailService.deleteMail(this.mail.id); 
+            // this.isShown = false;
+
         }
 
-        
+
     },
     created() {
         this.updateMail()
     },
     watch: {
-        '$route'(to , from){
+        '$route'(to, from) {
             this.updateMail()
         }
     },
 
 }
+
+
+
 

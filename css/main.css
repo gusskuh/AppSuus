@@ -1,5 +1,145 @@
+<<<<<<< HEAD
 #map{
     width: 500px;
     height: 500px;
     float: right;
 }
+=======
+.active {
+   
+    /* font-size: 18px; */
+    background-color: aliceblue !important; 
+    font-weight: bold;
+}
+
+.mail-preview {
+    /* font-weight: normal; */
+    font-size: 1em;
+    margin: 10px;
+    background-color:rgb(238, 238, 238);
+    height: 120px;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    color: #4a4a4a;
+    padding: 0.75rem; 
+}
+
+.progress {
+    width: 80%;
+}
+
+.mail-preview:hover {
+
+    border-right: 5px solid greenyellow;
+   
+}
+
+.nav-bar li:active {
+    background-color: #00b89c;
+}
+
+.mail-header {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;  
+    font-weight: bold; 
+}
+
+.mail-detials-title {
+    margin-top: 15px;
+}
+
+.time-stamp {
+    width: 100px;
+}
+
+.lable {
+    width: 100px;
+}
+
+body{
+    padding: 10px;
+    width: 1300px;
+    margin: 0 auto;
+}
+
+.mail-details {
+    padding:10px;
+    margin: 5px;
+    background-color: aliceblue;
+    height: 500px;
+    /* max-width: 650px; */
+}
+
+.mail-time {
+   background-color:  hsl(204, 86%, 53%);
+   color: white;
+}
+
+.controls {
+    height: 60px;
+}
+
+.navbar-item {
+    list-style-type: none;
+}
+
+.nav-bar {
+    height: 100px;
+}
+.sort-bar {
+    margin: 5px;
+}
+
+.select {
+    margin-left: 10px;
+}
+
+.search-bar {
+    width: 400px;
+    margin: 0px;
+    display: flex;  
+}
+
+
+ /* helpers */
+ 
+ .flex {
+    display: flex;
+ }
+
+ .space-between {
+     justify-content: space-between;
+ }
+
+ .justify-center {
+    justify-content: center;
+ }
+ .align-center {
+    align-content: center;
+ }
+
+ .flex-column {
+     flex-direction: column;
+ }
+
+
+ @media (max-width:1216px) {
+     
+
+ }
+
+
+
+
+>>>>>>> 4ea2eaacc164f9da800a007bf1d8ef942b625f53
